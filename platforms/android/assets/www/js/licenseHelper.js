@@ -38,7 +38,7 @@ var licenseHelper = function(){
             return getEncryptTtext(passPhrase, passPhrase);
         },
         checkLicense: function(passPhrase, license){
-            var decryptText = getDecryptText(license);
+            var decryptText = getDecryptText(passPhrase, license);
             return decryptText == passPhrase;
         }
     };

@@ -13,8 +13,8 @@
     </head>
     <body>
         <div data-role="page">
-            <div data-role="header" data-position="fixed" >
-                <h1><span>PK10助手授权码生成器</span></h1>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <h1 style="margin-left: auto; margin-right: auto"><span>PK10助手授权码生成器</span></h1>
             </div>
 
             <div data-role="main" class="ui-content">
@@ -22,7 +22,7 @@
                 <input type="text" id="uui">
                 <button id="btnGenerate">生成授权码</button>
                 <lable for="license">授权码</lable>
-                <textarea id="license" style="resize: none"></textarea>
+                <textarea id="license" readonly style="resize: none;"></textarea>
                 <button id="btnCopy">复制授权码</button>
             </div>
         </div>
@@ -30,9 +30,6 @@
         <script type="text/javascript">
             $(function(){
                 $('#license').height(200);
-                $('div[data-role=header]').css("margin-left", "auto");
-                $('div[data-role=header]').css("margin-right", "auto");
-
 
                 $('#btnGenerate').click(function(){
                     var uui = $('#uui').val();
