@@ -13,7 +13,7 @@
     </head>
     <body>
         <div data-role="page">
-            <div data-role="header" data-position="fixed" data-tap-toggle="false" style="margin-left: auto; margin-right: auto">
+            <div data-role="header" data-position="fixed" >
                 <h1><span>PK10助手授权码生成器</span></h1>
             </div>
 
@@ -30,6 +30,9 @@
         <script type="text/javascript">
             $(function(){
                 $('#license').height(200);
+                $('div[data-role=header]').css("margin-left", "auto");
+                $('div[data-role=header]').css("margin-right", "auto");
+
 
                 $('#btnGenerate').click(function(){
                     var uui = $('#uui').val();
