@@ -44,6 +44,10 @@
 
             $('#btnCopy').click(function(){
                 var license = $('#license').val();
+                if(!license){
+                    window.plugins.toast.showShortCenter("请先生成授权码！");
+                    return;
+                }
                 clipboard.copy(
                         license,
                         function(r){

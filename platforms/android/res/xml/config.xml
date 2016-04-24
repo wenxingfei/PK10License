@@ -8,11 +8,12 @@
     <feature name="Toast">
         <param name="android-package" value="nl.xservices.plugins.Toast" />
     </feature>
+    <name>授权码生成器</name>
     <feature name="ClipboardManagerPlugin">
         <param name="android-package" value="com.saatcioglu.phonegap.ClipboardManagerPlugin.ClipboardManagerPlugin" />
     </feature>
     <allow-intent href="market:*" />
-    <name>PK10助手授权码生成器</name>
+    <name>授权码生成器</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
