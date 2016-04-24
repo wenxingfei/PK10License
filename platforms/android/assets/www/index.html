@@ -34,7 +34,7 @@
                 $('#btnGenerate').click(function(){
                     var uuid = $('#uuid').val();
                     if(!uuid) {
-                        window.plugins.toast.showShortCenter("请输入手机uui码！");
+                        window.plugins.toast.showShortCenter("请输入手机识别码！");
                         return;
                     }
                     var license = licenseHelper.createLicense(uuid);
