@@ -20,6 +20,8 @@
             <div data-role="main" class="ui-content">
                 <label for="uuid">请输入手机识别码：</label>
                 <input type="text" id="uuid">
+                <label for="expirationDate">有效期至：</label>
+                <input type="date" id="expirationDate">
                 <button id="btnGenerate">生成授权码</button>
                 <lable for="license">授权码：</lable>
                 <textarea id="license" readonly style="resize: none;"></textarea>
@@ -37,7 +39,17 @@
                         window.plugins.toast.showShortCenter("请输入手机识别码！");
                         return;
                     }
-                    var license = licenseHelper.createLicense(uuid);
+                    var expirationDate = $('#expirationDate').val();
+                    if(!expirationDate){
+                        window.plugins.toast.showShortCenter("请输入有效期！");
+                        return;
+                    }
+                    var licenseInfo = {
+                        uuid: uuid,
+                        expirationDate: expirationDate
+                    };
+                    var json = JSON.stringify(licenseInfo);
+                    var license = licenseHelper.createLicense(json);
                     $('#license').val(license);
                 });
             });
