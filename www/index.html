@@ -49,7 +49,7 @@
                         expirationDate: expirationDate
                     };
                     var json = JSON.stringify(licenseInfo);
-                    var license = licenseHelper.createLicense(json);
+                    var license = licenseHelper.createLicense(uuid, json);
                     $('#license').val(license);
                 });
             });
