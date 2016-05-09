@@ -5,9 +5,12 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>PK10 License Generater</title>
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/mobiscroll.custom-2.16.1.min.css">
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="js/mobiscroll.custom-2.16.1.min.js"></script>
         <script type="text/javascript" src="js/cryptico.min.js"></script>
         <script type="text/javascript" src="js/licenseHelper.js"></script>
     </head>
@@ -16,10 +19,11 @@
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="margin-left: auto; margin-right: auto"><span>PK10助手授权码生成器</span></h1>
             </div>
-
             <div data-role="main" class="ui-content">
                 <label for="uuid">请输入手机识别码：</label>
                 <input type="text" id="uuid">
+                <label for="expirationDate">有效期至：</label>
+                <input type="text" data-role="datebox" id="expirationDate">
                 <button id="btnGenerate">生成授权码</button>
                 <lable for="license">授权码：</lable>
                 <textarea id="license" readonly style="resize: none;"></textarea>
@@ -30,34 +34,59 @@
         <script type="text/javascript">
             $(function(){
                 $('#license').height(200);
-
-                $('#btnGenerate').click(function(){
-                    var uuid = $('#uuid').val();
-                    if(!uuid) {
-                        window.plugins.toast.showShortCenter("请输入手机识别码！");
-                        return;
-                    }
-                    var license = licenseHelper.createLicense(uuid);
-                    $('#license').val(license);
-                });
+                $('#btnGenerate').click(onGenerateClick);
+                $('#btnCopy').click(onCopyBtnClick);
+                initDateBox();
             });
 
-            $('#btnCopy').click(function(){
+            var initDateBox = function(){
+                $('#expirationDate').mobiscroll().date({
+                    theme: "bootstrap",
+                    mode: "scroller",
+                    display: "modal",
+                    lang: "zh",
+                    dateFormat: "yyyy-mm-dd",
+                    endYear: "2050"
+                });
+            };
+
+            var onGenerateClick = function(){
+                var uuid = $('#uuid').val();
+                if(!uuid) {
+                    window.plugins.toast.showShortCenter("请输入手机识别码！");
+                    return;
+                }
+                var expirationDate = $('#expirationDate').val();
+                if(!expirationDate){
+                    window.plugins.toast.showShortCenter("请输入有效期！");
+                    return;
+                }
+                var licenseInfo = {
+                    uuid: uuid,
+                    expirationDate: expirationDate
+                };
+                var json = JSON.stringify(licenseInfo);
+                var license = licenseHelper.createLicense(uuid, json);
+                $('#license').val(license);
+            };
+
+            var onCopyBtnClick = function(){
                 var license = $('#license').val();
                 if(!license){
                     window.plugins.toast.showShortCenter("请先生成授权码！");
                     return;
                 }
                 clipboard.copy(
-                        license,
-                        function(r){
-                            window.plugins.toast.showShortCenter("复制成功！");
-                        },
-                        function(e){
-                            window.plugins.toast.showShortCenter("复制失败！");
-                        }
+                    license,
+                    function(r){
+                        window.plugins.toast.showShortCenter("复制成功！");
+                    },
+                    function(e){
+                        window.plugins.toast.showShortCenter("复制失败！");
+                    }
                 );
-            })
+            };
+
         </script>
     </body>
 </html>
